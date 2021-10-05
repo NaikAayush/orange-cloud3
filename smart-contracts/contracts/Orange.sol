@@ -38,6 +38,7 @@ contract Orange {
     }
 
     function addJob(
+        uint256 id,
         string memory cid,
         string memory type_,
         string memory name,
@@ -55,13 +56,11 @@ contract Orange {
             memBytes
         );
 
-        // random ID
-        // ref: https://stackoverflow.com/a/67332959
-        uint256 id = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
+        // // random ID
+        // // ref: https://stackoverflow.com/a/67332959
+        // uint256 id = uint256(keccak256(abi.encodePacked(block.difficulty, block.timestamp)));
 
         jobStore[id] = job;
         jobIds.push(id);
-
-        return id;
     }
 }
