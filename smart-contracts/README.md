@@ -36,3 +36,9 @@ Initialize helpers:
 const orange = await Orange.deployed();
 const accounts = await web3.eth.getAccounts();
 ```
+
+### Run tests
+
+```
+truffle test
+```
