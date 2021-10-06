@@ -1,14 +1,14 @@
 package types
 
-type Runtime int
+type Runtime string
 
 const (
-	Py Runtime = iota
-	Js
-	Wasm
+	Py Runtime = "py"
+	Js = "js"
+	Wasm = "wasm"
 )
 
 type Job struct {
-	Path string `json:"path"`
+	Cid string `json:"cid"`
 	JobRuntime Runtime `json:"job_runtime"`
 }
