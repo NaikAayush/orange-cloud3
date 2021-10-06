@@ -14,8 +14,8 @@ func Run(file []byte, runtime types.Runtime) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	
-	switch(runtime) {
+
+	switch runtime {
 	case types.Js:
 		log.Println("JavaScript runtime being initialized")
 
@@ -32,6 +32,6 @@ func Run(file []byte, runtime types.Runtime) (string, error) {
 	case types.Wasm:
 		log.Println("WASM runtime being initialized")
 	}
-	
+
 	return "", nil
 }

@@ -22,6 +22,6 @@ func ReadFile(sh *shell.Shell, cid string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	
+
 	return file, nil
 }
