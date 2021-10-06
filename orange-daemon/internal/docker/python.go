@@ -22,7 +22,7 @@ func runPython(ctx context.Context, dockerClient *client.Client, file []byte) ([
 
 	resp, err := dockerClient.ContainerCreate(ctx, &container.Config{
 		Image: "python",
-		Cmd: []string {"cat", "job"},
+		Cmd: []string {"python", "job"},
 	}, nil, nil, nil, "orange-python")
 	if err != nil {
 		return nil, err
@@ -61,6 +61,11 @@ func runPython(ctx context.Context, dockerClient *client.Client, file []byte) ([
 	if err != nil {
 		return nil, err
 	}	
+
+	err = dockerClient.ContainerRemove(ctx, resp.ID, types.ContainerRemoveOptions{})
+	if err != nil {
+		return nil, err
+	}
 
 	return output, nil
 }

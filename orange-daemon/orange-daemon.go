@@ -27,13 +27,13 @@ func main() {
 			return
 		}
 		
-		err = docker.Run(file, job.JobRuntime)
+		out, err := docker.Run(file, job.JobRuntime)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}		
 		
-		c.JSON(http.StatusOK, gin.H{"status": "success!"})
+		c.JSON(http.StatusOK, gin.H{"status": "success!", "output": out})
 	})
 
 	router.Run("0.0.0.0:4000")

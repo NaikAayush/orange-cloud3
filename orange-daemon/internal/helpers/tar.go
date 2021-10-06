@@ -5,15 +5,12 @@ import (
 	"bufio"
 	"bytes"
 	"io"
-	"log"
 )
 
 func TarFile(file []byte) (io.Reader, error){
 	var buf bytes.Buffer
 	tarWriter := tar.NewWriter(&buf)
 
-	log.Printf("Printing contents of file in tar function: %v", string(file))
-	
 	header := &tar.Header{
 		Name: "job",
 		Mode: 0600,

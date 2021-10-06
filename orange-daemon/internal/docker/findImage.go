@@ -8,26 +8,30 @@ import (
 	"github.com/docker/docker/client"
 )
 
-func Run(file []byte, runtime types.Runtime) error {
+func Run(file []byte, runtime types.Runtime) (string, error) {
 	ctx := context.Background()
 	dockerClient, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		return err
+		return "", err
 	}
 	
 	switch(runtime) {
 	case types.Js:
 		log.Println("JavaScript runtime being initialized")
+
 	case types.Py:
 		log.Println("Python runtime being initialized")
-		val ,err := runPython(ctx, dockerClient, file)
+		outBytes, err := runPython(ctx, dockerClient, file)
+		outString := string(outBytes)
 		if err != nil {
-			return err
+			return outString, err
 		}
-		log.Println(string(val))
+		log.Println(outString)
+		return outString, nil
+
 	case types.Wasm:
 		log.Println("WASM runtime being initialized")
 	}
 	
-	return nil
+	return "", nil
 }
