@@ -29,6 +29,18 @@ contract Orange {
     mapping(uint256 => Job) jobStore;
     uint256[] jobIds;
 
+    // events
+    event JobCreated(
+        uint256 id,
+        string cid,
+        string type_,
+        string name,
+        uint8 numCpus,
+        uint128 memBytes
+    );
+    event JobAccepted(uint256 id, address acceptor);
+    event JobOutputPut(uint256 id, string cid);
+
     constructor() public {}
 
     function getJob(uint256 jobId) public view returns (Job memory) {
@@ -65,6 +77,8 @@ contract Orange {
 
         jobStore[id] = job;
         jobIds.push(id);
+
+        emit JobCreated(id, cid, type_, name, numCpus, memBytes);
     }
 
     function acceptJob(uint256 id, address acceptor) public {
@@ -77,6 +91,8 @@ contract Orange {
         job.acceptedBy = acceptor;
 
         jobStore[id] = job;
+
+        emit JobAccepted(id, acceptor);
     }
 
     function putJobOutput(uint256 id, string memory cid) public {
@@ -87,5 +103,7 @@ contract Orange {
         job.outputCid = cid;
 
         jobStore[id] = job;
+
+        emit JobOutputPut(id, cid);
     }
 }
