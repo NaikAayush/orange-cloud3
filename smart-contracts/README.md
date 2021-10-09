@@ -14,7 +14,7 @@
 Local blockchain with 10 accounts.
 
 ```
-ganache-cli -a 10
+ganache-cli -a 10 -p 8550
 ```
 
 ### Deploy contracts
