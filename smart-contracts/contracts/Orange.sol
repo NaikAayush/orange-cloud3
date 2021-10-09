@@ -19,6 +19,8 @@ contract Orange {
         bool available;
         // address of user who accepted the job (if not available)
         address acceptedBy;
+        // cid of output file
+        string outputCid;
         // system requirements
         uint8 numCpus;
         uint128 memBytes;
@@ -44,7 +46,7 @@ contract Orange {
         string memory name,
         uint8 numCpus,
         uint128 memBytes
-    ) public returns (uint256) {
+    ) public {
         Job memory job = Job(
             true,
             cid,
@@ -52,6 +54,7 @@ contract Orange {
             name,
             true,
             address(0),
+            "",
             numCpus,
             memBytes
         );
@@ -62,5 +65,27 @@ contract Orange {
 
         jobStore[id] = job;
         jobIds.push(id);
+    }
+
+    function acceptJob(uint256 id, address acceptor) public {
+        Job memory job = jobStore[id];
+
+        require(job.isValid, "Job does not exist");
+        require(job.available, "Job is not available");
+
+        job.available = false;
+        job.acceptedBy = acceptor;
+
+        jobStore[id] = job;
+    }
+
+    function putJobOutput(uint256 id, string memory cid) public {
+        Job memory job = jobStore[id];
+
+        require(job.isValid, "Job does not exist");
+
+        job.outputCid = cid;
+
+        jobStore[id] = job;
     }
 }
