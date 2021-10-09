@@ -9,7 +9,8 @@ As of now only python runtime works, javascript and WASM are yet to be implement
 Starts the job and returns container_id
 - type: `post`
 - `$URL/runJob`
-- body: ```
+- body: 
+```
 {
 	"cid": <ipfs_cid_of_script>,
 	"job_runtime": <"py"/"js"/"wasm">,
@@ -42,3 +43,15 @@ Gets the exitcode if any
 - type: `get`
 - `$URL/job/exitcode?container_id=<container_id>`
 - res: `{'exitcode': <exitcode>}`
+
+### /ipfs/upload
+Uploads a file to ipfs and returns the cid
+- type `post`
+- `$URL/ipfs/upload`
+- res: `{'cid': <cid>}`
+
+### /ipfs/contents
+Returns the contents of a file given the cid
+- type `get`
+- `$URL/ipfs/contents?cid=<cid>`
+- res: string containing the contents of the file from ipfs
