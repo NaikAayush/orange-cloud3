@@ -1,11 +1,28 @@
-<div class="flex flex-col m-6 items-center justify-center">
-    <h1 class="text-3xl font-extrabold leading-7 text-gray-900 sm:text-3xl sm:truncate m-6 p-6">
-        Please note your mnemonic
-    </h1>
-    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate m-6 p-6">
-        {{mnemonic}}
-    </h2>
-    <button (click)="redirect()" type="button" class="w-32 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-        Upload
-    </button>
+<div class="flex flex-row w-screen h-screen bg-grey-200 overflow-auto">
+    <div class="sticky top-0 h-full p-4">
+        <app-sidebar class="h-auto"></app-sidebar>
+    </div>
+
+    <div class="flex flex-row bg-grey-200 w-5/6 p-6 h-full">
+        <div class="w-full h-full">
+            <app-header title="Mnemonic"></app-header>
+            <main class="flex w-full">
+                <div class="mx-auto px-4 sm:px-6 md:px-8">
+                    <div class="w-full h-full">
+                        <div class="flex flex-col m-6 items-center justify-center">
+                            <h1 class="text-4xl text-center font-extrabold text-gray-900  m-6 p-6">
+                                Please note your mnemonic
+                            </h1>
+                            <h2 class="inline-flex items-center px-2.5 py-0.5 rounded-full  bg-green-100 text-green-800 text-3xl text-center font-bold m-8">
+                                {{mnemonic}}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- <div class="w-1/4 h-full">
+            <app-notification-bar></app-notification-bar>
+    </div> -->
+    </div>
 </div>
