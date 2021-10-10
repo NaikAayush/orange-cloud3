@@ -27,7 +27,7 @@ export class ContractService {
   }
 
   public async addJob(
-    file: File,
+    cid: string,
     name: string,
     numCpus: number,
     memBytes: number,
@@ -36,12 +36,16 @@ export class ContractService {
     const id = this.rnd256();
     this.ids.push(id);
 
-    // TODO: add to IPFS and get CID
-    const cid = 'some-cid';
+    const tx = await this.web3.contract.methods.addJob(
+      id,
+      cid,
+      type_,
+      name,
+      numCpus,
+      memBytes
+    );
 
-    const res = await this.web3.contract.methods
-      .addJob(id, cid, type_, name, numCpus, memBytes)
-      .send();
+    const res = await this.sendTransaction(tx);
 
     console.log('Added job to blockchain. Result:', res);
 
@@ -56,20 +60,30 @@ export class ContractService {
     return res;
   }
 
-  public async acceptJob(id: string) {
-    const tx = this.web3.contract.methods
-      .acceptJob(id, await this.web3.getAddress());
-
+  public async sendTransaction(tx: any) {
     const newTx = {
       from: this.web3.account.address,
       to: this.web3.contractAddress,
-      gas: "215720",
+      gas: '215720',
       data: tx.encodeABI(),
     };
 
     const signedTx = await this.web3.account.signTransaction(newTx);
 
-    const res = (await this.web3.getWeb3()).eth.sendSignedTransaction(signedTx.rawTransaction as string);
+    const res = (await this.web3.getWeb3()).eth.sendSignedTransaction(
+      signedTx.rawTransaction as string
+    );
+
+    return res;
+  }
+
+  public async acceptJob(id: string) {
+    const tx = this.web3.contract.methods.acceptJob(
+      id,
+      await this.web3.getAddress()
+    );
+
+    const res = await this.sendTransaction(tx);
 
     console.log('Accepted job on blockchain. Result:', res);
 
@@ -77,7 +91,9 @@ export class ContractService {
   }
 
   public async putJobOutput(id: string, cid: string) {
-    const res = await this.web3.contract.methods.putJobOutput(id, cid).send();
+    const tx = await this.web3.contract.methods.putJobOutput(id, cid);
+
+    const res = await this.sendTransaction(tx);
 
     console.log('Put job output on blockchain. Result:', res);
 
