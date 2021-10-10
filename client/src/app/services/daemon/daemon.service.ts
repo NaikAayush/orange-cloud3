@@ -49,6 +49,10 @@ export class DaemonService {
     return await this.get("/job/status", {container_id});
   }
 
+  public async jobOutput(container_id: string) {
+    return await this.get("/job/output", {container_id});
+  }
+
   public async uploadToIPFS(file: File) {
     return await this.postFile("/ipfs/upload", file);
   }

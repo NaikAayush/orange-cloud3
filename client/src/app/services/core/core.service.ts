@@ -39,14 +39,23 @@ export class CoreService {
 
     console.log("Container ID", containerId);
 
-    this.jobStatusChecker(containerId);
+    await this.jobStatusChecker(containerId);
+
+    const output = await this.daemon.jobOutput(containerId);
+
+    console.log("Job output", output);
   }
 
   public async jobStatusChecker(containerId: string) {
     while (true) {
       const res = await this.daemon.jobStatus(containerId);
+      const data = JSON.parse(res);
 
-      console.log("Job status", containerId, res);
+      console.log("Job status", containerId, data);
+
+      if (data.status === "exited") {
+        break;
+      }
 
       await this.sleep(1000);
     }
