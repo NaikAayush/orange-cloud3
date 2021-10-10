@@ -14,13 +14,14 @@ export class DaemonService {
     return await this.http.post(this.daemonUrl + path, body).toPromise();
   }
 
-  public async postFile(path: string, file: File) {
+  public async postFile(path: string, file: File, params: any = undefined) {
     const formData = new FormData();
     formData.append("file", file);
 
     const req = new HttpRequest('POST', this.daemonUrl + path, formData, {
       reportProgress: true,
-      responseType: 'json'
+      responseType: 'json',
+      params: params ? new HttpParams(params) : undefined,
     });
 
     return await this.http.request(req).toPromise();
@@ -34,10 +35,10 @@ export class DaemonService {
       .toPromise();
   }
 
-  public async startNewJob(cid: string, job_runtime: string) {
-    console.log("Starting new job", cid, job_runtime);
+  public async startNewJob(file: File, job_runtime: string) {
+    console.log("Starting new job", file, job_runtime);
 
-    return await this.post("/job/start", {cid, job_runtime});
+    return await this.postFile("/job/start", file, {job_runtime});
   }
 
   public async jobStatus(container_id: string) {
@@ -46,5 +47,9 @@ export class DaemonService {
 
   public async uploadToIPFS(file: File) {
     return await this.postFile("/ipfs/upload", file);
+  }
+
+  public async getFromIPFS(cid: string) {
+    return await this.get("/ipfs/contents", {cid});
   }
 }

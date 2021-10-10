@@ -7,6 +7,8 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
   providedIn: 'root',
 })
 export class AuthService {
+  public password!: string;
+
   constructor(private dbService: NgxIndexedDBService) {}
 
   private generateMnemonic() {
@@ -14,6 +16,7 @@ export class AuthService {
   }
 
   private generateSeed(mnemonic: string, password: string) {
+    this.password = password;
     return Bip39.mnemonicToSeedSync(mnemonic, password);
   }
 
@@ -22,6 +25,7 @@ export class AuthService {
   }
 
   public createAccount(password: string) {
+    this.password = password;
     const mnem = this.generateMnemonic();
     const seed = this.generateSeed(mnem, password);
     const root = this.generateBIP32(seed);
@@ -35,6 +39,7 @@ export class AuthService {
   }
 
   public retrieveAccount(mnem: any, password: any) {
+    this.password = password;
     const seed = this.generateSeed(mnem, password);
     const root = this.generateBIP32(seed);
     // console.log({ pk: root.privateKey?.toString('hex') });
