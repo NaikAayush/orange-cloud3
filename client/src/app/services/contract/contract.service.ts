@@ -36,6 +36,8 @@ export class ContractService {
     const id = this.rnd256();
     this.ids.push(id);
 
+    await this.web3.initPromise;
+
     const tx = await this.web3.contract.methods.addJob(
       id,
       cid,
