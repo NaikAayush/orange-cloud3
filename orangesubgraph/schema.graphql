@@ -1,0 +1,11 @@
+type JobEntity @entity {
+    id: ID!
+    name: String!
+    type_: String!
+    cid: String!
+    available: Boolean!
+    acceptedBy: String
+    outputCid: String
+    numCpus: Int!
+    memBytes: BigInt!
+}

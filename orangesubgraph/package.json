@@ -1,0 +1,16 @@
+{
+  "name": "orangesubgraph",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ NaikAayush/orangesubgraph",
+    "create-local": "graph create --node http://localhost:8020/ NaikAayush/orangesubgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ NaikAayush/orangesubgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 NaikAayush/orangesubgraph"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.22.2",
+    "@graphprotocol/graph-ts": "0.22.1"
+  }
+}
