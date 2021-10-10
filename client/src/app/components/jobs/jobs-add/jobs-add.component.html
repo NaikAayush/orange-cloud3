@@ -1,0 +1,56 @@
+<div class="flex flex-row w-screen h-screen bg-grey-200 overflow-auto">
+    <div class="sticky top-0 h-full p-4">
+        <app-sidebar class="h-auto"></app-sidebar>
+    </div>
+
+    <div class="flex flex-row bg-grey-200 w-5/6 p-6 h-full">
+        <div class="w-full h-full">
+            <app-header title="Create Job"></app-header>
+            <main class="flex w-full">
+                <div class="mx-auto px-4">
+                    <div class="w-full h-full">
+                        <form action="" class="flex flex-col justify-center items-center">
+                            <div class="mt-8">
+                                <label for="cpu" class="font-semibold text-xl text-gray-700">Required CPU</label>
+                                <div class="mt-2 h-16 w-96">
+                                    <input type="number" name="cpu" id="cpu" class="h-full w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-2xl p-4" placeholder="2">
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <label for="ram" class="font-semibold text-xl text-gray-700">Required RAM</label>
+                                <div class="mt-2 h-16 w-96">
+                                    <input type="number" name="ram" id="ram" class="h-full w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-2xl p-4" placeholder="8">
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <label for="levelFour" class="font-semibold text-xl text-gray-700">Job Type</label>
+                                <div class="mt-2 h-16 w-96">
+                                    <select type="text" name="levelFour" id="levelFour" class="h-full w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-2xl p-4">
+                                        <option>Python</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <label for="ram" class="font-semibold text-xl text-gray-700">Job Name</label>
+                                <div class="mt-2 h-16 w-96">
+                                    <input type="number" name="ram" id="ram" class="h-full w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-2xl p-4" placeholder="8">
+                                </div>
+                            </div>
+                            <div class="mt-8">
+                                <label for="ram" class="font-semibold text-xl text-gray-700">Upload Code File</label>
+                                <div class="mt-2 h-16 w-96">
+                                    <input type="file" name="ram" id="ram" class="h-full w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block sm:text-sm border-gray-300 rounded-2xl p-4" placeholder="8">
+                                </div>
+                            </div>
+                            <div class="m-8">
+                                <button routerLink="add" class="flex flex-row justify-center items-center h-16 w-96 rounded-3xl text-white font-bold bg-indigo-500">
+                                    <span>Create Job</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>

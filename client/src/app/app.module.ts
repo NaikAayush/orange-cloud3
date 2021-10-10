@@ -14,6 +14,9 @@ import { MnemonicComponent } from './components/auth/mnemonic/mnemonic.component
 import { WelcomeComponent } from './components/auth/welcome/welcome.component';
 import { NgxIndexedDBModule, DBConfig } from 'ngx-indexed-db';
 import { ConfigureComponent } from './components/configure/configure.component';
+import { JobsComponent } from './components/jobs/jobs/jobs.component';
+import { JobsAddComponent } from './components/jobs/jobs-add/jobs-add.component';
+import { JobsGlobalComponent } from './components/jobs/jobs-global/jobs-global.component';
 
 const dbConfig: DBConfig = {
   name: 'MyDb',
@@ -45,6 +48,9 @@ const dbConfig: DBConfig = {
     MnemonicComponent,
     WelcomeComponent,
     ConfigureComponent,
+    JobsComponent,
+    JobsAddComponent,
+    JobsGlobalComponent,
   ],
   imports: [
     BrowserModule,

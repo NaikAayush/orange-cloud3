@@ -5,6 +5,9 @@ import { AuthPwMnFormComponent } from './components/auth/auth-pw-mn-form/auth-pw
 import { WelcomeComponent } from './components/auth/welcome/welcome.component';
 import { MnemonicComponent } from './components/auth/mnemonic/mnemonic.component';
 import { ConfigureComponent } from './components/configure/configure.component';
+import { JobsAddComponent } from './components/jobs/jobs-add/jobs-add.component';
+import { JobsGlobalComponent } from './components/jobs/jobs-global/jobs-global.component';
+import { JobsComponent } from './components/jobs/jobs/jobs.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -16,6 +19,9 @@ const routes: Routes = [
     data: { title: 'Mnemonic' },
   },
   { path: 'configure', component: ConfigureComponent },
+  { path: 'jobs/create', component: JobsAddComponent },
+  { path: 'jobs', component: JobsComponent },
+  { path: 'jobs/global', component: JobsGlobalComponent },
 ];
 
 @NgModule({
