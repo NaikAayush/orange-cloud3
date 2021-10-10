@@ -1,0 +1,9 @@
+<div class="flex flex-col bg-white w-80 h-full rounded-3xl justify-start items-center">
+    <div>
+        <img class="w-32 h-32" src="https://easydrawingguides.com/wp-content/uploads/2020/03/Orange-Step-10.png" alt="">
+    </div>
+    <div *ngFor="let route of routes;" class="flex flex-col w-5/6">
+        <app-sidebar-item [routerLink]="route.route" class="w-full h-16 my-2" [name]="route.name" [svg]="route.svg"></app-sidebar-item>
+    </div>
+    <div class="mb-4"></div>
+</div>

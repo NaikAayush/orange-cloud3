@@ -6,16 +6,9 @@ As of now only python runtime works, javascript and WASM are yet to be implement
 
 ## Endpoints
 ### /job/start
-Starts the job and returns container_id
+Starts the job and returns container_id. expects a file to be uploaded
 - type: `post`
-- `$URL/runJob`
-- body: 
-```
-{
-	"cid": <ipfs_cid_of_script>,
-	"job_runtime": <"py"/"js"/"wasm">,
-}
-```
+- `$URL/runJob?job_runtime=<"py"/"js"/"wasm">`
 - res: `{'container_id': <container_id>}`
 ### /job/status
 Checks the job status
@@ -43,6 +36,13 @@ Gets the exitcode if any
 - type: `get`
 - `$URL/job/exitcode?container_id=<container_id>`
 - res: `{'exitcode': <exitcode>}`
+
+
+### /job/output
+Gets the cid of the file containing output
+- type: `get`
+- `$URL/job/output?container_id=<container_id>`
+- res: `{'cid': <cid>}`
 
 ### /ipfs/upload
 Uploads a file to ipfs and returns the cid

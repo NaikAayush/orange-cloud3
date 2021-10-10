@@ -21,7 +21,7 @@ func runPython(ctx context.Context, dockerClient *client.Client, file []byte) (s
 	resp, err := dockerClient.ContainerCreate(ctx, &container.Config{
 		Image: "python",
 		Cmd:   []string{"python", "job"},
-	}, nil, nil, nil, "orange-python")
+	}, nil, nil, nil, "")
 	if err != nil {
 		return "", err
 	}
