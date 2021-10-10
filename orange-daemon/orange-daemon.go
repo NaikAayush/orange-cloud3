@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -24,20 +25,40 @@ func main() {
 
 	router := gin.Default()
 	router.POST("/job/start", func(c *gin.Context) {
-		var job types.Job
-		err := c.ShouldBindJSON(&job)
-		if err != nil {
-			log.Printf("Error unmarshalling JSON: %v", err)
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		runtime := c.Query("job_runtime")
+		var jobRuntime types.Runtime
+		switch {
+		case runtime == "py":
+			jobRuntime = types.Py
+		case runtime == "js":
+			jobRuntime = types.Js
+		case runtime == "wasm":
+			jobRuntime = types.Wasm
+		default:
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Wrong runtime type"})
 			return
 		}
-		file, err := ipfs.ReadFile(sh, job.Cid)
+
+		file, err := c.FormFile("file")
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
-		containerID, err := docker.Run(ctx, dockerClient, file, job.JobRuntime)
+		fileReader, err := file.Open()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		fileContents, err := ioutil.ReadAll(fileReader)
+		fileReader.Close()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+		log.Printf("File contents: %v", fileContents)
+
+		containerID, err := docker.Run(ctx, dockerClient, fileContents, jobRuntime)
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
@@ -79,6 +100,17 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"exit_code": exitcode})
 	})
 
+	router.GET("/job/output", func(c *gin.Context) {
+		containerID := c.Query("container_id")
+		output, err := docker.JobOutput(ctx, dockerClient, sh, containerID)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.String(http.StatusOK, string(output))
+	})
+
 	router.POST("/ipfs/upload", func(c *gin.Context) {
 		file, err := c.FormFile("file")
 		if err != nil {
@@ -91,7 +123,7 @@ func main() {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
-                defer fileContents.Close()
+		defer fileContents.Close()
 
 		cid, err := ipfs.Upload(sh, fileContents)
 		if err != nil {
