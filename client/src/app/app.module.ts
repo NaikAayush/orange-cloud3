@@ -37,6 +37,11 @@ const dbConfig: DBConfig = {
   ],
 };
 
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +65,20 @@ const dbConfig: DBConfig = {
     ReactiveFormsModule,
     NgxIndexedDBModule.forRoot(dbConfig),
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: environment.THEGRAPH_URI,
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

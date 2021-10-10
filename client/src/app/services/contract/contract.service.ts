@@ -43,7 +43,7 @@ export class ContractService {
       .addJob(id, cid, type_, name, numCpus, memBytes)
       .send();
 
-    console.log("Added job to blockchain. Result:", res);
+    console.log('Added job to blockchain. Result:', res);
 
     return id;
   }
@@ -51,15 +51,17 @@ export class ContractService {
   public async getJob(id: string) {
     const res = await this.web3.contract.methods.getJob(id).call();
 
-    console.log("Got job from blockchain", res);
+    console.log('Got job from blockchain', res);
 
     return res;
-  };
+  }
 
   public async acceptJob(id: string) {
-    const res = await this.web3.contract.methods.acceptJob(id, this.web3.getAddress()).send();
+    const res = await this.web3.contract.methods
+      .acceptJob(id, this.web3.getAddress())
+      .send();
 
-    console.log("Accepted job on blockchain. Result:", res);
+    console.log('Accepted job on blockchain. Result:', res);
 
     return res;
   }
@@ -67,7 +69,7 @@ export class ContractService {
   public async putJobOutput(id: string, cid: string) {
     const res = await this.web3.contract.methods.putJobOutput(id, cid).send();
 
-    console.log("Put job output on blockchain. Result:", res);
+    console.log('Put job output on blockchain. Result:', res);
 
     return res;
   }
