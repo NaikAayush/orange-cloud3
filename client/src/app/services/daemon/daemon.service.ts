@@ -18,20 +18,24 @@ export class DaemonService {
     const formData = new FormData();
     formData.append("file", file);
 
+    let urlParams = new HttpParams();
+    urlParams = urlParams.appendAll(params);
+
     const req = new HttpRequest('POST', this.daemonUrl + path, formData, {
       reportProgress: true,
       responseType: 'json',
-      params: params ? new HttpParams(params) : undefined,
+      params: urlParams,
     });
 
     return await this.http.request(req).toPromise();
   }
 
   public async get(path: string, params: any) {
-    const urlParams = new HttpParams(params);
+    let urlParams = new HttpParams();
+    urlParams = urlParams.appendAll(params);
 
     return await this.http
-      .get(this.daemonUrl + path, params ? { params: urlParams } : {})
+      .get(this.daemonUrl + path, { params: urlParams, responseType: 'text' })
       .toPromise();
   }
 
@@ -45,11 +49,15 @@ export class DaemonService {
     return await this.get("/job/status", {container_id});
   }
 
+  public async jobOutput(container_id: string) {
+    return await this.get("/job/output", {container_id});
+  }
+
   public async uploadToIPFS(file: File) {
     return await this.postFile("/ipfs/upload", file);
   }
 
   public async getFromIPFS(cid: string) {
-    return await this.get("/ipfs/contents", {cid});
+    return await this.get("/ipfs/contents", {cid: cid});
   }
 }

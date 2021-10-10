@@ -39,8 +39,19 @@ const dbConfig: DBConfig = {
 
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { InMemoryCache } from '@apollo/client/core';
+import { DefaultOptions, InMemoryCache } from '@apollo/client/core';
 import { environment } from 'src/environments/environment';
+
+const defaultOptions: DefaultOptions = {
+  watchQuery: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'ignore',
+  },
+  query: {
+    fetchPolicy: 'no-cache',
+    errorPolicy: 'all',
+  },
+}
 
 @NgModule({
   declarations: [
@@ -74,6 +85,7 @@ import { environment } from 'src/environments/environment';
           link: httpLink.create({
             uri: environment.THEGRAPH_URI,
           }),
+          defaultOptions: defaultOptions,
         };
       },
       deps: [HttpLink],

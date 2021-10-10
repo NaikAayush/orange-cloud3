@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ContractService } from '../contract/contract.service';
 import { DaemonService } from '../daemon/daemon.service';
@@ -22,12 +23,42 @@ export class CoreService {
   }
 
   public async acceptJob(job: Job) {
+    this.takenJobCount++;
+
     await this.contract.acceptJob(job.id);
 
-    const contents = this.daemon.getFromIPFS(job.cid);
-    console.log("Contents of file:", contents)
+    console.log("CID", job.cid);
 
-    this.takenJobCount++;
+    const contents = await this.daemon.getFromIPFS(job.cid);
+    console.log("Contents of file:", contents);
+
+    const file = new File([contents], "job");
+
+    const startResp = await this.daemon.startNewJob(file, job.type_) as HttpResponse<any>;
+    const containerId: string = startResp.body.container_id;
+
+    console.log("Container ID", containerId);
+
+    await this.jobStatusChecker(containerId);
+
+    const output = await this.daemon.jobOutput(containerId);
+
+    console.log("Job output", output);
+  }
+
+  public async jobStatusChecker(containerId: string) {
+    while (true) {
+      const res = await this.daemon.jobStatus(containerId);
+      const data = JSON.parse(res);
+
+      console.log("Job status", containerId, data);
+
+      if (data.status === "exited") {
+        break;
+      }
+
+      await this.sleep(1000);
+    }
   }
 
   public async jobChecker() {
