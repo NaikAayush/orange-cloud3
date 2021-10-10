@@ -94,7 +94,7 @@ export class ContractService {
   }
 
   public async putJobOutput(id: string, cid: string) {
-    const tx = await this.web3.contract.methods.putJobOutput(id, cid);
+    const tx = this.web3.contract.methods.putJobOutput(id, cid);
 
     const res = await this.sendTransaction(tx);
 

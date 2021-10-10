@@ -44,6 +44,12 @@ export class CoreService {
     const output = await this.daemon.jobOutput(containerId);
 
     console.log("Job output", output);
+
+    const res = await this.daemon.uploadToIPFS(new File([output], "output")) as HttpResponse<any>;
+    const outputCID = res.body.cid;
+
+    const outputput = await this.contract.putJobOutput(job.id, outputCID);
+    console.log("Put Output", outputput);
   }
 
   public async jobStatusChecker(containerId: string) {
