@@ -78,6 +78,7 @@ export class ContractService {
   }
 
   public async acceptJob(id: string) {
+    await this.web3.initPromise;
     const tx = this.web3.contract.methods.acceptJob(
       id,
       await this.web3.getAddress()
