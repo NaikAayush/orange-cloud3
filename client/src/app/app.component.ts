@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CoreService } from './services/core/core.service';
 import { Web3Service } from './services/web3/web3.service';
 
 @Component({
@@ -9,5 +10,5 @@ import { Web3Service } from './services/web3/web3.service';
 export class AppComponent {
   title = 'client';
 
-  constructor(public web3: Web3Service) {}
+  constructor(public web3: Web3Service, public core: CoreService) {}
 }

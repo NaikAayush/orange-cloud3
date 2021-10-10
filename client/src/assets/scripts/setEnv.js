@@ -46,6 +46,7 @@ const environmentFileContent = `
     blockchainUrl: '${process.env.blockchainUrl}',
     daemonUrl: '${process.env.daemonUrl}',
     URSULA_DOMAINS: '${process.env.URSULA_DOMAINS}',
+    THEGRAPH_URI: '${process.env.THEGRAPH_URI}',
   };
 `;
 
