@@ -2,6 +2,7 @@ package ipfs
 
 import (
 	"io/ioutil"
+	"log"
 
 	shell "github.com/ipfs/go-ipfs-api"
 )
@@ -17,7 +18,7 @@ func ReadFile(sh *shell.Shell, cid string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	// log.Printf("Printing contents of file from ipfs: %v", string(file))
+	log.Printf("Printing contents of file from ipfs: %v", string(file))
 	err = fileReader.Close()
 	if err != nil {
 		return nil, err

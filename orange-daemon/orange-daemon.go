@@ -79,5 +79,39 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"exit_code": exitcode})
 	})
 
+	router.POST("/ipfs/upload", func(c *gin.Context) {
+		file, err := c.FormFile("file")
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		fileContents, err := file.Open()
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+                defer fileContents.Close()
+
+		cid, err := ipfs.Upload(sh, fileContents)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"cid": cid})
+	})
+
+	router.GET("/ipfs/contents", func(c *gin.Context) {
+		cid := c.Query("cid")
+		output, err := ipfs.ReadFile(sh, cid)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
+		c.String(http.StatusOK, string(output))
+	})
+
 	router.Run("0.0.0.0:4000")
 }
