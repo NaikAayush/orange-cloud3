@@ -21,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
     "@apollo/client": "^3.4.16",
+    "@superfluid-finance/js-sdk": "^0.5.5",
+    "@truffle/contract": "^4.3.38",
     "apollo-angular": "^2.6.0",
     "assert": "^2.0.0",
     "bip32": "^2.0.6",
