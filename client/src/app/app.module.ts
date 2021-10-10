@@ -13,6 +13,7 @@ import { AuthPwMnFormComponent } from './components/auth/auth-pw-mn-form/auth-pw
 import { MnemonicComponent } from './components/auth/mnemonic/mnemonic.component';
 import { WelcomeComponent } from './components/auth/welcome/welcome.component';
 import { NgxIndexedDBModule, DBConfig } from 'ngx-indexed-db';
+import { ConfigureComponent } from './components/configure/configure.component';
 
 const dbConfig: DBConfig = {
   name: 'MyDb',
@@ -43,6 +44,7 @@ const dbConfig: DBConfig = {
     AuthPwMnFormComponent,
     MnemonicComponent,
     WelcomeComponent,
+    ConfigureComponent,
   ],
   imports: [
     BrowserModule,
