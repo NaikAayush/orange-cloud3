@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthPwMnFormComponent } from './components/auth/auth-pw-mn-form/auth-pw-mn-form.component';
 import { WelcomeComponent } from './components/auth/welcome/welcome.component';
 import { MnemonicComponent } from './components/auth/mnemonic/mnemonic.component';
+import { ConfigureComponent } from './components/configure/configure.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     component: MnemonicComponent,
     data: { title: 'Mnemonic' },
   },
+  { path: 'configure', component: ConfigureComponent },
 ];
 
 @NgModule({

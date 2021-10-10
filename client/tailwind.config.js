@@ -36,9 +36,6 @@ module.exports = {
           warning: "#FFBB54",
           info: "#58CDFF",
         },
-        indigo: {
-          500: "#B7DBF9",
-        },
       },
     },
   },
