@@ -10,6 +10,7 @@ import { JobsGlobalComponent } from './components/jobs/jobs-global/jobs-global.c
 import { JobsComponent } from './components/jobs/jobs/jobs.component';
 
 const routes: Routes = [
+  { path: '', component: DashboardComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'auth', component: WelcomeComponent },
   { path: 'auth/:type', component: AuthPwMnFormComponent },
