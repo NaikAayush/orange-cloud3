@@ -46,13 +46,16 @@ export class AuthService {
     return btoa(pk);
   }
 
-  private login(pk: string, chainCode: Buffer) {
+  private async login(pk: string, chainCode: Buffer) {
+    console.log('aaa', pk, chainCode);
     const hash = this.hashPrivateKey(pk);
-    this.dbService.update('auth', {
-      id: 1,
-      privateKey: hash,
-      chainCode: chainCode,
-    });
+    await this.dbService
+      .update('auth', {
+        id: 1,
+        privateKey: hash,
+        chainCode: chainCode,
+      })
+      .toPromise();
   }
 
   public logout() {
