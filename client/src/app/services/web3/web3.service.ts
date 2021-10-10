@@ -14,7 +14,7 @@ export class Web3Service {
   constructor() {
     this.web3 = new Web3(environment.blockchainUrl);
     this.contractAddress = environment.contractAddress;
-    this.contract = new this.web3.eth.Contract(environment.contractAbi as any, this.contractAddress);
+    this.contract = new this.web3.eth.Contract(require("src/assets/contractAbi.json") as any, this.contractAddress);
   }
 
   public getAddress(): string {
