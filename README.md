@@ -45,6 +45,10 @@ Navigate to http://localhost:4200/ in the browser to access Orange Cloud.
  - [subgraph](./orangesubgraph/): The Graph hosted service' subgraph specification - YAML, GraphQL schema, mapping script.
  - [smart-contracts](./smart-contracts/): Solidity smart contracts that run on the chain.
 
+## Architecture
+
+![](./architecture.png)
+
 ## License
 
 MIT
