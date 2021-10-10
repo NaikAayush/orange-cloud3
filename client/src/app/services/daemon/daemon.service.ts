@@ -18,8 +18,13 @@ export class DaemonService {
     const formData = new FormData();
     formData.append("file", file);
 
-    let urlParams = new HttpParams();
-    urlParams = urlParams.appendAll(params);
+    let urlParams;
+    if (params === undefined) {
+      urlParams = undefined;
+    } else {
+      urlParams = new HttpParams();
+      urlParams = urlParams.appendAll(params);
+    }
 
     const req = new HttpRequest('POST', this.daemonUrl + path, formData, {
       reportProgress: true,
