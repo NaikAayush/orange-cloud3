@@ -10,7 +10,33 @@ This repository contains the source code for all of the project.
 
 ## Usage
 
-TODO
+### Requirements
+
+ - Operating system: tested on Linux (Fedora, Debian) and Windows 10/11. Should work on Mac OS too.
+ - Docker: necessary to run jobs sandboxed. Refer to [this page](https://docs.docker.com/engine/install/) for installation instructions.
+ - IPFS: a local IPFS daemon is necessary to upload scripts and outputs. Refer to [this page](https://docs.ipfs.io/install/ipfs-desktop/) for installation instructions.
+ - node (v14) and npm (v6): temporarily necessary to run the frontend. Can be removed in the future.
+ - Golang (1.16): necessary to run the go daemon. Can be removed in the future by distributing the binary.
+
+### Start
+
+Start the frontend:
+```
+npm install -g @angular/cli
+cd client
+npm i
+ng serve
+```
+
+Start the go daemon (in another terminal):
+```
+cd orange-daemon
+go run .
+```
+
+Start IPFS daemon (opening the desktop app should suffice) and docker.
+
+Navigate to http://localhost:4200/ in the browser to access Orange Cloud.
 
 ## Code Structure
 
