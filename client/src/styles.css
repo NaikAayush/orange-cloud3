@@ -4,5 +4,6 @@
 @tailwind utilities;
 
 * {
-  font-family: "Nunito", sans-serif !important;
+  /* font-family: "Nunito", sans-serif !important; */
+  font-family: "Open Sans", sans-serif !important;
 }

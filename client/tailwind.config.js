@@ -7,9 +7,9 @@ module.exports = {
   darkMode: "class", // or 'media' or 'class'
   theme: {
     extend: {
-      backgroundImage: {
-        "login-illustration": "url('assets/login/login-illustration.svg')",
-      },
+      // backgroundImage: {
+      //   "login-illustration": "url('assets/login/login-illustration.svg')",
+      // },
       colors: {
         custom: {
           100: "#E5EBF8",
@@ -27,8 +27,8 @@ module.exports = {
           dark: "#464255",
         },
         theme: {
-          primary: "#AB54DB",
-          secondary: "#B7DBF9",
+          primary: "#B7DBF9",
+          secondary: "#AB54DB",
           tertiary: "#EF9A91",
           quatinery: "#F1E6B9",
           success: "#00A389",
@@ -37,7 +37,7 @@ module.exports = {
           info: "#58CDFF",
         },
         indigo: {
-          500: "#AB54DB",
+          500: "#B7DBF9",
         },
       },
     },
@@ -45,5 +45,4 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
 };
