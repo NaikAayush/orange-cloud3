@@ -11,6 +11,7 @@ import (
 	"github.com/NaikAayush/orange-cloud3/orange-daemon/internal/types"
 	"github.com/docker/docker/client"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 	shell "github.com/ipfs/go-ipfs-api"
 )
 
@@ -24,6 +25,8 @@ func main() {
 	}
 
 	router := gin.Default()
+	router.Use(cors.Default())
+
 	router.POST("/job/start", func(c *gin.Context) {
 		runtime := c.Query("job_runtime")
 		var jobRuntime types.Runtime
