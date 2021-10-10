@@ -57,9 +57,19 @@ export class ContractService {
   }
 
   public async acceptJob(id: string) {
-    const res = await this.web3.contract.methods
-      .acceptJob(id, this.web3.getAddress())
-      .send();
+    const tx = this.web3.contract.methods
+      .acceptJob(id, await this.web3.getAddress());
+
+    const newTx = {
+      from: this.web3.account.address,
+      to: this.web3.contractAddress,
+      gas: "215720",
+      data: tx.encodeABI(),
+    };
+
+    const signedTx = await this.web3.account.signTransaction(newTx);
+
+    const res = (await this.web3.getWeb3()).eth.sendSignedTransaction(signedTx.rawTransaction as string);
 
     console.log('Accepted job on blockchain. Result:', res);
 
