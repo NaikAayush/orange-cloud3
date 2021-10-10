@@ -1,0 +1,30 @@
+specVersion: 0.0.2
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: orange
+    network: mumbai
+    source:
+      address: "0x093804cF052E9F723E9b633c740237E9Ee75c310"
+      startBlock: 19997688
+      abi: orange
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - JobAccepted
+        - JobCreated
+        - JobOutputPut
+      abis:
+        - name: orange
+          file: ./abis/orange.json
+      eventHandlers:
+        - event: JobAccepted(uint256,address)
+          handler: handleJobAccepted
+        - event: JobCreated(uint256,string,string,string,uint8,uint128)
+          handler: handleJobCreated
+        - event: JobOutputPut(uint256,string)
+          handler: handleJobOutputPut
+      file: ./src/mapping.ts
