@@ -31,7 +31,7 @@ export class ContractService {
     name: string,
     numCpus: number,
     memBytes: number,
-    type_: string = 'python'
+    type_: string = 'py'
   ) {
     const id = this.rnd256();
     this.ids.push(id);
